@@ -2,7 +2,7 @@ SqlFileStreamWebApiDemo
 =======================
 
 # Overview
-The basic idea is to serve large JSON or XML files directly as streams of binary data. If a typical Web API architecture with Entity Framwork and serializer is used, the web server must hold both large objects and the serialized result in memory for as long as the request is active. For responses around 100 MB this will lead to performance problems, also for SQL servers. There are severs schemes to avoid this, the one I am looking into in this demo is my favorite.
+The basic idea is to serve large JSON or XML files directly as streams of binary data. If a typical Web API architecture with Entity Framwork and serializer is used, the web server must hold both large objects and the serialized result in memory for as long as the request is active. For responses around 100 MB this will lead to performance problems, also for the database. There are schemes to avoid this, the one I am looking into in this demo is my favorite.
 
 Someone has to gzip and store the data in SQL, this approach is more a cache for large responses.
 When the request comes, we get a handle to the file that SQL Server is using as its underlying storage. This allows us to stream the raw data directly to the client, and simply by stating the encoding and content-type the client renders the data correctly. Gzip is unversially understood by web clients. I tried the example with PowerQuery in 64 bit Excel 2013 and it works very well to consume data directly from the web server.
