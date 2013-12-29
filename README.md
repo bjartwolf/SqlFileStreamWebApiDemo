@@ -1,8 +1,11 @@
-SqlFileStreamWebApiDemo
+SwissProt.xml.gSqlFileStreamWebApiDemo
 =======================
 
 # Overview
+The basic idea is to serve large JSON or XML files directly as streams of binary data. If a typical Entity Framwork and serializer is used, the web server must hold both large objects and the serialized result in memory for as long as the request is active. For responses around 100 MB this will lead to performance problems, also for SQL servers. There are severs schemes to avoid this, the one I am looking into in this demo is my favorite.
 
+Someone has to gzip and store the data in SQL, this approach is more a cache for large responses.
+When the request comes, we get a handle to the file that SQL Server is using as its underlying storage. This allows us to stream the raw data directly to the client, and simply by stating the encoding and content-type the client renders the data correctly. Gzip is unversially understood by web clients. I tried the example with PowerQuery in 64 bit Excel 2013 and it works very well to consume data directly from the web server.
 
               +-----------------+
               |                 |
@@ -29,10 +32,23 @@ SqlFileStreamWebApiDemo
               |    Filesystem   |
               |                 |
               +-----------------+
+
+## In node.js
+A simpler example that demonstrates the principle can be tested in node.js using a file directly.
+
+```javascript      
+var http = require('http');
+var fs = require('fs');
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'application/xml',
+                        'Content-Encoding':'gzip'});  
+    fs.createReadStream('SwissProt.xml.gz').pipe(res);
+}).listen(1337, '127.0.0.1');
+```
               
 # Getting the DB set up and testdata
 
-Obviously you can use whatever huge XML or JSON file with Enterprise data that you happen to have, but if you don't have any data lying around then get the testdata from SwissProt.xml.gz available from http://www.cs.washington.edu/research/xmldatasets/www/repository.html
+Obviously you can use whatever huge XML or JSON file with Enterprise data that you happen to have, but if you don't have any data lying around then get the testdata from z available from http://www.cs.washington.edu/research/xmldatasets/www/repository.html
 Direct download link: http://www.cs.washington.edu/research/xmldatasets/data/SwissProt/SwissProt.xml.gz
 
 The gzip file is about 12% the size of the original XML file.
