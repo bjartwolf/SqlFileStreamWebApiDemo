@@ -55,7 +55,7 @@ GO
 I prefer to use LINQPad, so I simply insert the .gz file into the manually created table with a carefully chosen GUID already inserted in a row.
  ```cs
 var guid = new Guid("1277453e-6894-4c57-95b3-8498b316d43a");
-var row1 = FASTTABLEs.Where(r => r.ID == guid).First().ZippedXML =
+FASTTABLEs.Where(r => r.ID == guid).First().ZippedXML =
 			File.ReadAllBytes(@"C:\Users\beb\Downloads\SwissProt.xml.gz");
 SubmitChanges();
  ```
