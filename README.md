@@ -1,7 +1,36 @@
 SqlFileStreamWebApiDemo
 =======================
 
-## Getting testdata
+# Overview
+
+
+              +-----------------+
+              |                 |
+              |     Browser     |
+              |                 |
+              |  Unpacking gzip |
+              +--------+--------+
+                       | Content-Encoding: gzip
+                       | Content-Type: application/xml
+              +--------+--------+
+              |                 |
+              |    Web API      | Web API serving a binary stream
+              |                 | directly from SQL Server using
+              +--------+--------+ SqlFileStream
+                       |
+              +--------+--------+
+              |                 |
+              |    SQL Server   | SQL Server is storing the data on disk
+              |                 |
+              +--------+--------+
+                       |
+              +--------+--------+
+              |                 |
+              |    Filesystem   |
+              |                 |
+              +-----------------+
+              
+# Getting the DB set up and testdata
 
 Obviously you can use whatever huge XML or JSON file with Enterprise data that you happen to have, but if you don't have any data lying around then get the testdata from SwissProt.xml.gz available from http://www.cs.washington.edu/research/xmldatasets/www/repository.html
 Direct download link: http://www.cs.washington.edu/research/xmldatasets/data/SwissProt/SwissProt.xml.gz
@@ -62,6 +91,6 @@ FASTTABLEs.Where(r => r.ID == guid).First().ZippedXML =
 SubmitChanges();
  ```
 
-## Running the application
+# Running the application
 The Visual Studio 2013 project should fetch its dependencies using Nuget and run without problems...
 I could only parse this large files in Chrome and using Excel PowerQuery, but try it in your favorite browser that you think is capable of handling it...
