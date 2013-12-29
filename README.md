@@ -1,4 +1,4 @@
-SwissProt.xml.gSqlFileStreamWebApiDemo
+SqlFileStreamWebApiDemo
 =======================
 
 # Overview
