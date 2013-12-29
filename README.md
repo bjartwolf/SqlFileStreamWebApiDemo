@@ -9,13 +9,15 @@ Direct download link: http://www.cs.washington.edu/research/xmldatasets/data/Swi
 The gzip file is about 12% the size of the original XML file.
 
 ## Configuring SQL Server FILESTREAM
-I think it is better to follow the instructions here, but there are some manual configurations that must be done both in
-SQL Server Configuration Manager and in SQL Server Management Studio.
-
+I think it is better to follow the instructions in "Appendix A: Configuring FILESTREAM on a SQL Server Instance" in
 http://download.red-gate.com/ebooks/SQL/Art_of_SS_Filestream_Sebastian_and_Aelterman.pdf
 
+There are some configurations that must be done both in SQL Server Configuration Manager and in SQL Server Management Studio. 
+
+
 ## The database
-I just dumped the create script...
+FILESTREAM fields can not be initialized from the user interface, but must be added by script.
+I just dumped my create script...
  ```sql
 USE [MyFastDB]
 GO
