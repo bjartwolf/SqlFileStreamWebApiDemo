@@ -14,6 +14,43 @@ SQL Server Configuration Manager and in SQL Server Management Studio.
 
 http://download.red-gate.com/ebooks/SQL/Art_of_SS_Filestream_Sebastian_and_Aelterman.pdf
 
+## The database
+I just dumped the create script...
+ ```sql
+USE [MyFastDB]
+GO
+
+/****** Object:  Table [dbo].[FASTTABLE]    Script Date: 29.12.2013 21:47:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[FASTTABLE](
+	[ID] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
+	[ZippedXML] [varbinary](max) FILESTREAM  NULL,
+ CONSTRAINT [PK_FASTTABLE] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY] FILESTREAM_ON [MyFastDBfs],
+UNIQUE NONCLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] FILESTREAM_ON [MyFastDBfs]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+ ```
+
+
+
 ## Insert testdata in the database
 I prefer to use LINQPad, so I simply insert the .gz file into the manually created table with a carefully chosen GUID already inserted in a row.
  ```cs
