@@ -35,6 +35,7 @@ In strategy, someone has to gzip and store the data in SQL in advance. This coul
               +-----------------+
 
 # Simpler demos
+Most of the complexity in this demo has to do with using SQL Server FILESTREAM. These two demos demonstrates the principle by streaming directly from file and is a lot easier to get running.
 
 ## In node.js
 A simpler example that demonstrates the principle can be tested in node.js using a file directly.
@@ -135,3 +136,8 @@ SubmitChanges();
 # Running the application
 The Visual Studio 2013 project should fetch its dependencies using Nuget and run without problems...
 I could only parse this large files in Chrome and using Excel PowerQuery, but try it in your favorite browser that you think is capable of handling it...
+
+
+# Troubleshooting
+
+I had a lot of issues that had to do with the gzip data being formatted correctly. For example I UTF-8 encoded the response due to some old code I hadn't changed. When the browser could not decode the response, it just closes the connection and shows no error message. IIS just sees that the response has been closed by the browser. I assumed I was closing the stream prematurely, whereas the real issue was the content in the stream. This is easily seen with Fiddler, which I of course should have used, but didn't and wasted a lot of time digging deep into Web API.
