@@ -23,14 +23,14 @@ When the request comes, we get a handle to the file that SQL Server is using as 
                        |
               +--------+--------+
               |                 |
-              |    SQL Server   | SQL Server is storing the data on disk
-              |                 |
+              |    SQL Server   | SQL Server is storing each entry as a file on disk
+              |                 | SQL Server deals with transactions and so on.
               +--------+--------+
                        |
               +--------+--------+
               |                 |
-              |    Filesystem   |
-              |                 |
+              |    Filesystem   | We get a file handle directly from disk that we can 
+              |                 | stream data from
               +-----------------+
 
 ## In node.js
