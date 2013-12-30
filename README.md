@@ -34,6 +34,8 @@ In strategy, someone has to gzip and store the data in SQL in advance. This coul
               |                 | stream data from
               +-----------------+
 
+# Simpler demos
+
 ## In node.js
 A simpler example that demonstrates the principle can be tested in node.js using a file directly.
 
@@ -45,6 +47,28 @@ http.createServer(function (req, res) {
                         'Content-Encoding':'gzip'});  
     fs.createReadStream('SwissProt.xml.gz').pipe(res);
 }).listen(1337, '127.0.0.1');
+```
+
+## In C# directly from file
+
+Or in Web API, reading directly from a file https://github.com/bjartwolf/FileStreamWebApiDemo
+
+```c#
+public class FastController : ApiController
+{
+    [Route("")]
+    public HttpResponseMessage GetResult()
+    {
+        var fs = new FileStream(Path.Combine(HttpRuntime.AppDomainAppPath, "medline13n0701.xml.gz"), FileMode.Open);
+	var response = new HttpResponseMessage(HttpStatusCode.OK)
+	{
+	    Content = new StreamContent(fs)
+	};
+	response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
+	response.Content.Headers.ContentEncoding.Add("gzip");
+	return response;
+    }
+}
 ```
               
 # Getting the DB set up and testdata
