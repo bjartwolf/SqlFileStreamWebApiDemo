@@ -2,10 +2,15 @@
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Http;
+using System.Web.UI.WebControls;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace SqlFileStreamWebApiDemo.Controllers
 {
@@ -37,13 +42,15 @@ namespace SqlFileStreamWebApiDemo.Controllers
             reader.Close();
 
             var sqlStream = new SqlFileStream(filePath, txContext, FileAccess.Read);
-
+            
             var response = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new BlobStream(sqlStream, 1048576, cmd)
+            {                   
+                Content = new FilterStream(sqlStream, 1048576, cmd)
             };
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
-            response.Content.Headers.ContentEncoding.Add("gzip");
+            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
+            //response.Content.Headers.ContentEncoding.Add("gzip");
+
+
             return response;
         }
     }
