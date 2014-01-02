@@ -6,7 +6,7 @@ namespace SqlFileStreamWebApiDemo
 {
     public class BlobStream : StreamContent
     {
-        private readonly SqlCommand _command;
+        protected readonly SqlCommand _command;
 
         public BlobStream(Stream content, SqlCommand cmd) : base(content)
         {
@@ -20,16 +20,7 @@ namespace SqlFileStreamWebApiDemo
 
         protected override void Dispose(bool disposing)
         {
-            if (_command.Connection != null)
-            {
-                
-                _command.Connection.Dispose();
-            }
-            if (_command != null)
-            {
-                _command.Dispose();
-            }
-            base.Dispose(disposing);
+            
         }
     }
 }

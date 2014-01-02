@@ -45,12 +45,12 @@ namespace SqlFileStreamWebApiDemo.Controllers
             
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {                   
-                Content = new FilterStream(sqlStream, 1048576, cmd)
+                Content = new FilterStream(sqlStream, cmd)
             };
             //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/xml");
             //response.Content.Headers.ContentEncoding.Add("gzip");
 
-
+            
             return response;
         }
     }
