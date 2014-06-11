@@ -1,6 +1,9 @@
 SqlFileStreamWebApiDemo
 =======================
 
+Here is a presentation of this topic from NDC Oslo 2014
+https://vimeo.com/97507562
+
 # Overview
 The basic idea is to serve large JSON or XML files directly as streams of binary data. In a typical .NET Web API architecture with Entity Framwork and standard serializers are used, the web server must hold both large objects and the serialized result in memory for as long as the request is active. For responses around 100 MB this will lead to performance problems, also for the database. Standard caching strategies might not work very well in this case. There are strategies to avoid this, the one I am looking into in this demo is my favorite. 
 
